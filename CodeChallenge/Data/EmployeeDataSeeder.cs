@@ -46,6 +46,8 @@ namespace CodeChallenge.Data
 
         private void FixUpReferences(List<Employee> employees)
         {
+            //construct new object to have id -> employee reference is the new object; new array of objects with id and serialzed employee
+            //then iterate through the employees and replace the direct reports with the actual employee object
             var employeeIdRefMap = from employee in employees
                                 select new { Id = employee.EmployeeId, EmployeeRef = employee };
 
@@ -54,9 +56,9 @@ namespace CodeChallenge.Data
                 
                 if (employee.DirectReports != null)
                 {
-                    var referencedEmployees = new List<Employee>(employee.DirectReports.Count);
+                    var referencedEmployees = new List<Employee>(employee.DirectReports.Count); //number of list objects
                     employee.DirectReports.ForEach(report =>
-                    {
+                    { //look up direct report ids and match employees direct report ids to create create object on 51
                         var referencedEmployee = employeeIdRefMap.First(e => e.Id == report.EmployeeId).EmployeeRef;
                         referencedEmployees.Add(referencedEmployee);
                     });
