@@ -29,7 +29,10 @@ namespace CodeChallenge.Repositories
 
         public Employee GetById(string id)
         {
-            return _employeeContext.Employees.SingleOrDefault(e => e.EmployeeId == id);
+            //all of child objects by default, if not specified, will not be included in result
+            //tell framework to get child relationship objects, too (direct reports)
+            //get parent and linking table at same time - so include direct reports 
+            return _employeeContext.Employees.Include(e => e.DirectReports).SingleOrDefault(e => e.EmployeeId == id);
         }
 
         public Task SaveAsync()
