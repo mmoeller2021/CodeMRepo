@@ -15,5 +15,8 @@ namespace CodeChallenge.Data
         }
 
         public DbSet<Employee> Employees { get; set; }
+
+        //didn't add a compensation context bc not a large process such as billing, shipping, but apart of the employee
+        public DbSet<Compensation> Compensations { get; set; } = null!;
     }
 }
